@@ -1,4 +1,6 @@
+from typing import Any
 from django.db.models import F #db
+from django.db.models.query import QuerySet
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 #from django.template import loader
 from django.shortcuts import get_object_or_404, render
@@ -29,6 +31,12 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
   model = Question #django auto pulls db here based on url param pk
   template_name = "polls/detail.html"
+
+  def get_queryset(self):
+    '''
+    Exclues any questions that aren't published yet
+    '''
+    return Question.objects.filter(pub_date__lte=timezone.now())
 
 # def detail(request, question_id):
 #   question = get_object_or_404(Question, pk=question_id)
