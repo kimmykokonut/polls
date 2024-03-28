@@ -14,7 +14,7 @@ class IndexView(generic.ListView):
 
   def get_queryset(self):
     """Return last 4 published qs"""
-    return Question.objects.order_by("-pub_date")[:5]
+    return Question.objects.order_by("-pub_date")[:5] #this is the db pull
 
 # def index(request):
 #   latest_question_list = Question.objects.order_by("-pub_date")[:5]
@@ -23,7 +23,7 @@ class IndexView(generic.ListView):
   
 # generic view
 class DetailView(generic.DetailView):
-  model = Question
+  model = Question #django auto pulls db here based on url param pk
   template_name = "polls/detail.html"
 
 # def detail(request, question_id):
